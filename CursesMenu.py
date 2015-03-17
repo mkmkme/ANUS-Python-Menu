@@ -93,7 +93,8 @@ class CursesMenu(object):
         }
         if c not in handlers:
             self._screen.erase()
-            s = "Oops, input '{0}' was not recognized! :(".format(chr(c))
+            cc = chr(c) if c < 256 else 'UNKNOWN'
+            s = "Oops, input {0}('{1}') was not recognized! :(".format(c, cc)
             self._screen.addstr(15, 15, s, curses.A_BOLD)
             self._screen.getch()
         else:
