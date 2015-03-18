@@ -1,3 +1,27 @@
+commit 5fb1c3067b70280ac7039551bc39217eb6b94ec4
+Author: Reverend Homer <mk.43.ecko@gmail.com>
+Date:   Wed Mar 18 01:42:24 2015 +0300
+
+    Fixes #1 Added checking input
+
+commit c35b419a43460282ef5aeabac02715923989f217
+Author: Reverend Homer <mk.43.ecko@gmail.com>
+Date:   Sun Feb 15 18:19:09 2015 +0300
+
+    lil comment lol
+
+commit 49918829113a804d422e06abc85fdccc23e28a60
+Author: Reverend Homer <mk.43.ecko@gmail.com>
+Date:   Sat Feb 14 23:39:22 2015 +0300
+
+    Little improvements
+
+commit bba6faa44409ee9339ab305f5ffd1290b2640988
+Author: Reverend Homer <mk.43.ecko@gmail.com>
+Date:   Sat Feb 14 22:58:33 2015 +0300
+
+    Filled changelog
+
 commit e246c6e60f294451cb342655bcbb1a5870a15555
 Author: Reverend Homer <mk.43.ecko@gmail.com>
 Date:   Sat Feb 14 22:56:35 2015 +0300
