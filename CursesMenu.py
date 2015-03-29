@@ -87,7 +87,7 @@ class CursesMenu(object):
             ord('0'): correctExit,
             ord('q'): correctExit,
             ord('Q'): correctExit,
-            ord('\n'): showItem, # dunno why curses.KEY_ENTER doesn't work :(
+            ord('\n'): showItem,  # dunno why curses.KEY_ENTER doesn't work :(
             curses.KEY_UP: decreaseNum,
             curses.KEY_DOWN: increaseNum
         }
