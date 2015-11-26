@@ -1,17 +1,23 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import curses
 
 
 class CursesMenu(object):
     """docstring for CursesMenu"""
-    def __init__(self, screen, items):
-        self._screen = screen
+    def __init__(self, headerstr, items):
+        self._screen = curses.initscr()
+        self._headerstr = headerstr
         self._items = items
         self.num_sel = 0
         curses.start_color()
         curses.init_pair(1, curses.COLOR_RED, curses.COLOR_WHITE)
         self._screen.keypad(1)
+
+    def __del__(self):
+        curses.endwin()
+
 
     def drawHeader(self, invoke=True):
         self._screen.erase()
@@ -23,7 +29,7 @@ class CursesMenu(object):
         Lovely pep8 analyzer things that long lines is PURE EVIL!!!
         So I've had to declarate local variable for strings
         """
-        s = "My lovely menu"
+        s = self._headerstr
         self._screen.addstr(y, x, s, curses.A_STANDOUT)
         y += 2
         if invoke:
@@ -50,39 +56,35 @@ class CursesMenu(object):
         self._screen.addstr(y, x, "0. Exit", style)
         self._screen.refresh()
         ch = self._screen.getch()
-        self.processInput(ch)
+        return self.processInput(ch)
 
     def processInput(self, c):
-        """
-        For now, we have only one useful feature - print menu item *sighs*
-        """
         def increaseNum():
             if self.num_sel == len(self._items):
-                return
+                return -1
             self.num_sel += 1
+            return -1
 
         def decreaseNum():
             if self.num_sel == 0:
-                return
+                return -1
             self.num_sel -= 1
+            return -1
 
         def showItem():
             if self.num_sel == len(self._items):
                 correctExit()
             y, x = self.drawHeader(False)
-            s = self._items[self.num_sel]
+            s = '{}: {}'.format(self.num_sel, self._items[self.num_sel])
             self._screen.addstr(14, 15, "You chose: ", curses.A_NORMAL)
             self._screen.addstr(15, 15, s, curses.A_BOLD)
             self._screen.getch()
+            return self.num_sel
 
         def correctExit():
             curses.endwin()
             exit()
 
-        """
-        I don't know if we can set one value to many keys more beautiful :(
-        Mail me if you know how
-        """
         handlers = {
             ord('0'): correctExit,
             ord('q'): correctExit,
@@ -97,23 +99,6 @@ class CursesMenu(object):
             s = "Oops, input {0}('{1}') was not recognized! :(".format(c, cc)
             self._screen.addstr(15, 15, s, curses.A_BOLD)
             self._screen.getch()
+            return -1
         else:
-            handlers[c]()
-            self.draw()
-
-
-def main():
-    scr = curses.initscr()
-    items = [
-        "Ivan Ivanoff",
-        "Petr Petroff",
-        "Sidor Sidoroff",
-        "Ushat Pomoev",
-        "Rulon Oboev"
-    ]
-    menu = CursesMenu(scr, items)
-    while True:
-        menu.draw()
-
-if __name__ == "__main__":
-    main()
+            return handlers[c]()
