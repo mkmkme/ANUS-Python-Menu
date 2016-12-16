@@ -15,7 +15,10 @@ class CursesMenu(object):
         self._screen.keypad(1)
 
     def __del__(self):
-        curses.endwin()
+        try:
+            curses.endwin()
+        except TypeError:
+            pass
 
 
     def drawHeader(self, invoke=True):
